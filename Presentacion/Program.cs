@@ -67,14 +67,14 @@ namespace Presentacion
             } while ((tipoAfiliacion!=1) && (tipoAfiliacion!=2));
             if (tipoAfiliacion == 1)
             {
-                LiquidacionCuotaModeradora contributivo = new Contributivo(numero, identificacion, fecha, salarioDevengado, valorServicioHospitalizacion);
+                LiquidacionCuotaModeradora contributivo = new Contributivo('c',numero, identificacion, fecha, salarioDevengado, valorServicioHospitalizacion);
                 ContributivoService liquidacionCuotaModeradoraService = new ContributivoService();
                 contributivo.CuotaModeradora = liquidacionCuotaModeradoraService.CalcularCuotaModeradora(valorServicioHospitalizacion, salarioDevengado);
                 Console.WriteLine(liquidacionCuotaModeradoraService.Guardar(contributivo));
             }
             else
             {
-                Subsidiado subsidiado = new Subsidiado(numero, identificacion, fecha, salarioDevengado, valorServicioHospitalizacion);
+                Subsidiado subsidiado = new Subsidiado('s',numero, identificacion, fecha, salarioDevengado, valorServicioHospitalizacion);
                 SubsidiadoService liquidacionCuotaModeradoraService = new SubsidiadoService();
                 subsidiado.CuotaModeradora = liquidacionCuotaModeradoraService.CalcularCuotaModeradora(valorServicioHospitalizacion, salarioDevengado);
                 Console.WriteLine(liquidacionCuotaModeradoraService.Guardar(subsidiado));
@@ -87,7 +87,23 @@ namespace Presentacion
 
         static void ConsultarListaLiquidaciones()
         {
+            
+            ContributivoService liquidacionCuotaModeradoraService = new ContributivoService();
+            LiquidacionConsultaResponse consultaResponse = liquidacionCuotaModeradoraService.Consultar();
+            if (consultaResponse.Error)
+            {
+                Console.WriteLine(consultaResponse.Message);
 
+            }
+            else
+            {
+                foreach (var item in consultaResponse.Liquidaciones)
+                {
+                    Console.WriteLine(item.ToString());
+                }
+                
+            }
+            Console.ReadKey();
         }
 
         static void ConsultaTipoAfiliacion()

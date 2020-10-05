@@ -65,5 +65,38 @@ namespace Logica
                 return "Error: " + e.Message;
             }
         }
+
+        public LiquidacionConsultaResponse Consultar()
+        {
+            try
+            {
+                List<LiquidacionCuotaModeradora> liquidacionCuotaModeradoras = liquidacionCuotaModeradoraRepository.ConsultarTodos();
+                var response = new LiquidacionConsultaResponse(liquidacionCuotaModeradoras);
+                return response;
+            }
+            catch (Exception e)
+            {
+                var response = new LiquidacionConsultaResponse("Error de Aplicacion:" + e.Message);
+                return response;
+            }
+
+        }
+
+    }
+    public class LiquidacionConsultaResponse
+    {
+        public List<LiquidacionCuotaModeradora> Liquidaciones { get; set; }
+        public string Message { get; set; }
+        public bool Error { get; set; }
+        public LiquidacionConsultaResponse(string message)
+        {
+            Error = true;
+            Message = message;
+        }
+        public LiquidacionConsultaResponse(List<LiquidacionCuotaModeradora> liquidaciones)
+        {
+            Liquidaciones = liquidaciones;
+            Error = false;
+        }
     }
 }

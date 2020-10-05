@@ -9,7 +9,7 @@ namespace Entidad
 {
     public abstract class LiquidacionCuotaModeradora
     {
-        public LiquidacionCuotaModeradora(int numero, string identificacion, string fecha, int salarioDevengado, double valorServicioHospitalizacion)
+        public LiquidacionCuotaModeradora(char tipo,int numero, string identificacion, string fecha, int salarioDevengado, double valorServicioHospitalizacion)
         {
             Identificacion = identificacion;
             Fecha = fecha;
@@ -17,6 +17,12 @@ namespace Entidad
             SalarioDevengado = salarioDevengado;
             ValorServicioHospitalizacion = valorServicioHospitalizacion;
             CuotaModeradora = 0;
+            Tipo = tipo;
+        }
+
+        public LiquidacionCuotaModeradora()
+        {
+
         }
 
         public string Identificacion { get; set; }
@@ -25,10 +31,14 @@ namespace Entidad
         public int SalarioDevengado { get; set; }
         public double ValorServicioHospitalizacion { get; set; }
         public double CuotaModeradora { get; set; }
-
+        public char Tipo { get; set; }
+        public override string ToString()
+        {
+            return $"tipo afiliacion:{Tipo}-NumeroLiquidacion: {Numero}-Identificacion: {Identificacion}-fecha: {Fecha}-salario devengado: {SalarioDevengado}- valor servicio hospitalizacion: {ValorServicioHospitalizacion}-Cuota Moderadora: {CuotaModeradora}";
+        }
         public string DameDatosFormatoArchivo()
         {
-            return Numero + ";" + Identificacion + ";" + Fecha + ";" + SalarioDevengado + ";" + ValorServicioHospitalizacion + ";"+CuotaModeradora;
+            return Tipo+";"+Numero + ";" + Identificacion + ";" + Fecha + ";" + SalarioDevengado + ";" + ValorServicioHospitalizacion + ";"+CuotaModeradora;
         }
     }
 }

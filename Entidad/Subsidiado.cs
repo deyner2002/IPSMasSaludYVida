@@ -8,9 +8,14 @@ namespace Entidad
 {
     public class Subsidiado : LiquidacionCuotaModeradora
     {
-        public Subsidiado(int numero, string identificacion, string fecha, int salarioDevengado, double valorServicioHospitalizacion): base(numero, identificacion,fecha,salarioDevengado,valorServicioHospitalizacion)
+        public Subsidiado(char tipo, int numero, string identificacion, string fecha, int salarioDevengado, double valorServicioHospitalizacion): base(tipo,numero, identificacion,fecha,salarioDevengado,valorServicioHospitalizacion)
         {
             
+        }
+
+        public Subsidiado(): base()
+        {
+
         }
     }
 }
