@@ -1,4 +1,5 @@
 ﻿using Entidad;
+using Datos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,16 @@ namespace Logica
         }
 
         public abstract double CalcularCuotaModeradora(double valorServicioHospitalizacion,int salarioDevengado);
+        
+        public string Eliminar(int numero)
+        {
+            
+            LiquidacionCuotaModeradoraRepository liquidacionCuotaModeradoraRepository = new LiquidacionCuotaModeradoraRepository();
+            
+               return liquidacionCuotaModeradoraRepository.Eliminar(numero);
+           
+            
+            
+        }
     }
 }

@@ -11,7 +11,8 @@ namespace Datos
 {
     public class LiquidacionCuotaModeradoraRepository
     {
-        private string fileName = "Liquidaciones Cuotas Moderadoras";
+        
+        private string fileName = "Liquidaciones Cuotas Moderadoras.txt";
         public void guardar(LiquidacionCuotaModeradora liquidacionCuotaModeradora)
         {
             FileStream file = new FileStream(fileName, FileMode.Append);
@@ -20,6 +21,50 @@ namespace Datos
             writer.Close();
             file.Close();
         }
+
+        public void GuardarListado(List<LiquidacionCuotaModeradora> lista)
+        {
+           
+        }
+
+        public string Eliminar(int numero)
+        {
+            FileStream file = new FileStream("Temporal.txt", FileMode.Create);
+            StreamWriter escribir = new StreamWriter(file);
+            FileStream fileReader = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
+            StreamReader leer = new StreamReader(fileReader);
+            
+            
+            string linea = string.Empty;
+            char encontrado = 'n';
+            while ((linea = leer.ReadLine()) != null)
+            {
+               LiquidacionCuotaModeradora liquidacionCuotaModeradora = Map(linea);
+                if (liquidacionCuotaModeradora.Numero == numero)
+                {
+                    encontrado = 's';
+                   
+                }
+                else
+                {
+                    escribir.WriteLine(liquidacionCuotaModeradora.DameDatosFormatoArchivo());
+                }
+                
+            }
+            leer.Close();
+            escribir.Close();
+            File.Delete("Liquidaciones Cuotas Moderadoras.txt");
+            File.Move("Temporal.txt", "Liquidaciones Cuotas Moderadoras.txt");
+            if (encontrado == 'n')
+            {
+                return "no se encontró ese registro";
+            }
+            else
+            {
+                return "se encontró el registro";
+            }
+
+         }
 
         public List<LiquidacionCuotaModeradora> ConsultarTodos()
         {

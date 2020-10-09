@@ -41,7 +41,7 @@ namespace Presentacion
                     case 5: ConsultaLiquidacionesRealizadas(); break;
                     case 6: ConsultaNombre(); break;
                     case 7: EliminarLiquidacion(); break;
-                    case 8: ModoficarValor();break;
+                    case 8: ModificarValor();break;
                     default: Console.WriteLine("Opcion no valida");break;
                 }
             } while (opc != 0);
@@ -128,11 +128,28 @@ namespace Presentacion
 
         static void EliminarLiquidacion()
         {
+            int numeroLiquidacion;
+            Console.WriteLine("Escriba el numero de liquidacion: "); numeroLiquidacion = int.Parse(Console.ReadLine());
+            LiquidacionCuotaModeradoraService liquidacionCuotaModeradoraService = new ContributivoService();
+            try
+            {
+                Console.WriteLine(liquidacionCuotaModeradoraService.Eliminar(numeroLiquidacion));
+            }
+            catch (Exception e)
+            {
 
+                Console.WriteLine(e.Message);
+            }
+            
         }
 
-        static void ModoficarValor()
+        static void ModificarValor()
         {
+            int numeroLiquidacion;
+            double valorServicioHospitalizacion;
+            Console.WriteLine("Escriba el numero de liquidacion: ");numeroLiquidacion= int.Parse(Console.ReadLine());
+            Console.WriteLine("Escriba el nuevo valor de servicio de hospitalizacion: "); valorServicioHospitalizacion = double.Parse(Console.ReadLine());
+
 
         }
     }
