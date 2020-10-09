@@ -32,6 +32,9 @@ namespace Entidad
         public double ValorServicioHospitalizacion { get; set; }
         public double CuotaModeradora { get; set; }
         public char Tipo { get; set; }
+
+        public abstract double CalcularCuotaModeradora(double valorServicioHospitalizacion, int salarioDevengado);
+
         public override string ToString()
         {
             return $"tipo afiliacion:{Tipo}-NumeroLiquidacion: {Numero}-Identificacion: {Identificacion}-fecha: {Fecha}-salario devengado: {SalarioDevengado}- valor servicio hospitalizacion: {ValorServicioHospitalizacion}-Cuota Moderadora: {CuotaModeradora}";

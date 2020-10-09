@@ -149,7 +149,16 @@ namespace Presentacion
             double valorServicioHospitalizacion;
             Console.WriteLine("Escriba el numero de liquidacion: ");numeroLiquidacion= int.Parse(Console.ReadLine());
             Console.WriteLine("Escriba el nuevo valor de servicio de hospitalizacion: "); valorServicioHospitalizacion = double.Parse(Console.ReadLine());
+            LiquidacionCuotaModeradoraService liquidacionCuotaModeradoraService = new ContributivoService();
+            try
+            {
+                Console.WriteLine(liquidacionCuotaModeradoraService.Modificar(numeroLiquidacion,valorServicioHospitalizacion));
+            }
+            catch (Exception e)
+            {
 
+                Console.WriteLine(e.Message);
+            }
 
         }
     }

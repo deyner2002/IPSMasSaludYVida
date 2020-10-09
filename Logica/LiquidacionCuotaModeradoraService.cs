@@ -23,9 +23,13 @@ namespace Logica
             LiquidacionCuotaModeradoraRepository liquidacionCuotaModeradoraRepository = new LiquidacionCuotaModeradoraRepository();
             
                return liquidacionCuotaModeradoraRepository.Eliminar(numero);
-           
-            
-            
+        }
+
+        public string Modificar(int numero, double servisioHospitalizacion)
+        {
+            LiquidacionCuotaModeradoraRepository liquidacionCuotaModeradoraRepository = new LiquidacionCuotaModeradoraRepository();
+
+            return liquidacionCuotaModeradoraRepository.Modificar(numero,servisioHospitalizacion);
         }
     }
 }

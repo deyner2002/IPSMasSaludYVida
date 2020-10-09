@@ -33,8 +33,6 @@ namespace Datos
             StreamWriter escribir = new StreamWriter(file);
             FileStream fileReader = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader leer = new StreamReader(fileReader);
-            
-            
             string linea = string.Empty;
             char encontrado = 'n';
             while ((linea = leer.ReadLine()) != null)
@@ -65,6 +63,48 @@ namespace Datos
             }
 
          }
+
+        public string Modificar(int numero,double valorServicioHospitalizacion)
+        {
+            FileStream file = new FileStream("Temporal.txt", FileMode.Create);
+            StreamWriter escribir = new StreamWriter(file);
+            FileStream fileReader = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
+            StreamReader leer = new StreamReader(fileReader);
+
+            string linea = string.Empty;
+            char encontrado = 'n';
+            while ((linea = leer.ReadLine()) != null)
+            {
+                LiquidacionCuotaModeradora liquidacionCuotaModeradora = Map(linea);
+                if (liquidacionCuotaModeradora.Numero == numero)
+                {
+                    encontrado = 's';
+                    liquidacionCuotaModeradora.ValorServicioHospitalizacion = valorServicioHospitalizacion;
+                    liquidacionCuotaModeradora.CuotaModeradora = liquidacionCuotaModeradora.CalcularCuotaModeradora(valorServicioHospitalizacion,liquidacionCuotaModeradora.SalarioDevengado);
+                    escribir.WriteLine(liquidacionCuotaModeradora.DameDatosFormatoArchivo());
+
+                }
+                else
+                {
+                    escribir.WriteLine(liquidacionCuotaModeradora.DameDatosFormatoArchivo());
+                }
+
+            }
+            leer.Close();
+            escribir.Close();
+            File.Delete("Liquidaciones Cuotas Moderadoras.txt");
+            File.Move("Temporal.txt", "Liquidaciones Cuotas Moderadoras.txt");
+            if (encontrado == 'n')
+            {
+                return "no se encontró ese registro";
+            }
+            else
+            {
+                return "se encontró el registro y se modificó";
+            }
+
+           
+        }
 
         public List<LiquidacionCuotaModeradora> ConsultarTodos()
         {

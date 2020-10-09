@@ -17,5 +17,15 @@ namespace Entidad
         {
 
         }
+
+        public override double CalcularCuotaModeradora(double valorServicioHospitalizacion, int salarioDevengado)
+        {
+            double cuotaModeradora = valorServicioHospitalizacion * 0.05;
+            if (cuotaModeradora > 200000)
+            {
+                cuotaModeradora = 200000;
+            }
+            return cuotaModeradora;
+        }
     }
 }
